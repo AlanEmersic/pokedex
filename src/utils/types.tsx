@@ -47,9 +47,9 @@ export default function TypeColor(type: string) {
     case WATER:
       return "#9BC4DF";
     case GRASS:
-      return "#9BCC50";
+      return "#8FBC49";
     case ELECTRIC:
-      return "#EED535";
+      return "#BFAB29";
     case ICE:
       return "#51C4E7";
     case FIGHTING:
@@ -75,9 +75,9 @@ export default function TypeColor(type: string) {
     case STEEL:
       return "#9EB7B8";
     case FAIRY:
-      return "#FDB9E9";
+      return "#D685BE";
 
     default:
-      return "#7F8587";
+      return "#595959";
   }
 }

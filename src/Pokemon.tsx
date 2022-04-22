@@ -23,9 +23,9 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
   const defaultSprite = pokemon.sprites.front_default;
 
   return isloading ? (
-    <Skeleton variant="rectangular" height={345} sx={{ maxHeight: 345 }} />
+    <Skeleton variant="rectangular" height={300} sx={{ maxHeight: 300 }} />
   ) : (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300 }}>
       <CardMedia component="img" image={defaultSprite} alt={name} />
       <CardContent
         sx={{
@@ -71,8 +71,10 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
             })}
         </Stack>
       </CardContent>
-      <CardActions>
-        <Button size="small">More information</Button>
+      <CardActions sx={{ justifyContent: "center" }}>
+        <Button size="medium" variant="outlined">
+          Details
+        </Button>
       </CardActions>
     </Card>
   );
