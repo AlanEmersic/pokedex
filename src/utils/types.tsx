@@ -59,7 +59,7 @@ export default function TypeColor(type: string) {
     case GROUND:
       return "#AB9842";
     case FLYING:
-      return "#BDB9B8";
+      return "#ACA8A7";
     case PSYCHIC:
       return "#F366B9";
     case BUG:
@@ -73,7 +73,7 @@ export default function TypeColor(type: string) {
     case DRAGON:
       return "#F16E57";
     case STEEL:
-      return "#9EB7B8";
+      return "#8CA2A3";
     case FAIRY:
       return "#D685BE";
 

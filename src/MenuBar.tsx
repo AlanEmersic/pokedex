@@ -2,11 +2,9 @@ import {
   AppBar,
   Avatar,
   Box,
-  Button,
-  CardMedia,
+  Button,  
   Chip,
-  Container,
-  IconButton,
+  Container,  
   Menu,
   MenuItem,
   Toolbar,
@@ -15,6 +13,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import TypeColor from "./utils/types";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const types = [
   "ALL",
@@ -43,22 +42,12 @@ export default function MenuBar({ selectType }: any) {
     selectType(type);
   };
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -87,9 +76,10 @@ export default function MenuBar({ selectType }: any) {
             <Tooltip title="Open settings">
               <Button
                 onClick={handleOpenUserMenu}
-                sx={{ p: 0 }}
+                sx={{ px: 1 }}
                 variant="outlined"
                 size="large"
+                endIcon={<KeyboardArrowDownIcon />}
               >
                 Types
               </Button>

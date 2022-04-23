@@ -96,7 +96,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Paper>
+      <Paper variant="outlined">
         <MenuBar selectType={selectType} />
         <PokemonList pokemons={pokemons} isloading={loading} />
         {allType && <MenuNavigation goToPage={goToPage} />}

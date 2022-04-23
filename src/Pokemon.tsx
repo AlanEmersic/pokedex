@@ -9,6 +9,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import PokemonDetails from "./PokemonDetails";
 import TypeColor, { TYPES } from "./utils/types";
 
 export default function Pokemon({ pokemon, isloading = true }: any) {
@@ -22,12 +24,16 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
 
   const defaultSprite = pokemon.sprites.front_default;
 
+  const [openDetails, setOpenDetails] = useState(false);
+  const handleOpenDetails = () => setOpenDetails(true);
+  const handleCloseDetails = () => setOpenDetails(false);
+
   return isloading ? (
     <Skeleton variant="rectangular" height={300} sx={{ maxHeight: 300 }} />
   ) : (
     <Card sx={{ maxWidth: 300 }}>
-      <CardMedia component="img" image={defaultSprite} alt={name} />
-      <CardContent
+      <CardMedia component="img" image={defaultSprite} alt={name} onClick={handleOpenDetails}/>
+      <CardContent onClick={handleOpenDetails}
         sx={{
           textAlign: "center",
         }}
@@ -72,9 +78,14 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
         </Stack>
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>
-        <Button size="medium" variant="outlined">
+        <Button size="medium" variant="outlined" onClick={handleOpenDetails}>
           Details
         </Button>
+        <PokemonDetails
+          pokemon={pokemon}
+          openDetails={openDetails}
+          handleCloseDetails={handleCloseDetails}
+        />
       </CardActions>
     </Card>
   );

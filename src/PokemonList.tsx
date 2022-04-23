@@ -3,8 +3,8 @@ import Pokemon from "./Pokemon";
 
 export default function PokemonList({ pokemons, isloading = true }: any) {
   return (
-    <Container sx={{ padding: "3rem 0" }}>
-      <Grid container spacing={5}>
+    <Container>
+      <Grid container spacing={5} mb={15}>
         {pokemons &&
           pokemons.map((p: any, index: number) => {
             return (
