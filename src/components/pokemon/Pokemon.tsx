@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import PokemonDetails from "./PokemonDetails";
-import TypeColor, { TYPES } from "./utils/types";
+import TypeColor, { TYPES } from "../../utils/types";
 
 export default function Pokemon({ pokemon, isloading = true }: any) {
   const id = "#" + ("000" + pokemon.id).slice(-3);

@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import TypeColor from "./utils/types";
+import TypeColor from "../../utils/types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const types = [

@@ -45,7 +45,7 @@ export default function TypeColor(type: string) {
     case FIRE:
       return "#FD7D24";
     case WATER:
-      return "#9BC4DF";
+      return "#7FA1B7";
     case GRASS:
       return "#8FBC49";
     case ELECTRIC:

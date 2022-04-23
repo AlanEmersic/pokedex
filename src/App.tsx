@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import PokemonList from "./PokemonList";
+import PokemonList from "./components/pokemon/PokemonList";
 import axios from "axios";
-import MenuNavigation from "./MenuNavigation";
-import MenuBar from "./MenuBar";
+import MenuNavigation from "./components/menu/MenuNavigation";
+import MenuBar from "./components/menu/MenuBar";
 import theme from "./utils/theme";
 import { Paper, ThemeProvider } from "@mui/material";
 

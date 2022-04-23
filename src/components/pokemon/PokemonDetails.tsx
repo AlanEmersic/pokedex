@@ -12,7 +12,7 @@ import {
 
 import Backdrop from "@mui/material/Backdrop";
 import PokemonStats from "./PokemonStats";
-import TypeColor, { TYPES } from "./utils/types";
+import TypeColor, { TYPES } from "../../utils/types";
 
 const style = {
   position: "absolute",
