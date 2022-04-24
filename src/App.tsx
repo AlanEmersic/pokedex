@@ -106,6 +106,7 @@ function App() {
 
     let cancel: any = null;
     setLoading(true);
+    setAllType(false);
 
     await axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`, {

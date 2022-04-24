@@ -13,3 +13,13 @@ link: https://pokeapi.co/
 - Run using command: `npm start`
 
 - Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+<img src="public/assets/img/main.png" width="500" height="430" alt="main" />
+
+<br>
+
+<img src="public/assets/img/search.png" width="500" height="250" alt="search" />
+
+<br>
+
+<img src="public/assets/img/details.png" width="500" height="425" alt="details" />
