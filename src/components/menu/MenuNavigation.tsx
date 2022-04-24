@@ -1,9 +1,14 @@
 import { Paper } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useState } from "react";
 
 export default function MenuNavigation({ goToPage }: any) {
+  const maxPages = 57;
+  const [currentPage, setCurrentPage] = useState<number>(0);
+
   const onChangePage = (event: any, page: number) => {
+    setCurrentPage(page);
     goToPage(page);
   };
 
@@ -21,9 +26,10 @@ export default function MenuNavigation({ goToPage }: any) {
         }}
       >
         <Pagination
-          count={57}
+          count={maxPages}
           variant="outlined"
           color="primary"
+          page={currentPage}
           onChange={onChangePage}
         />
       </Stack>

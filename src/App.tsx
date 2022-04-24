@@ -18,9 +18,13 @@ function App() {
     getPokemons();
   }, [currentPageUrl]);
 
-  const getPokemons = async () => {
+  const getPokemons = async (pageUrl: string | null = null) => {
     setLoading(true);
     let cancel: any = null;
+
+    if (pageUrl !== null) {
+      setCurrentPageUrl(pageUrl);
+    }
 
     await axios
       .get(currentPageUrl, {
@@ -60,7 +64,7 @@ function App() {
 
   const selectType = async (type: string) => {
     if (type === "ALL") {
-      getPokemons();
+      getPokemons("https://pokeapi.co/api/v2/pokemon");
       return;
     }
 
