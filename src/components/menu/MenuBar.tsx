@@ -2,18 +2,19 @@ import {
   AppBar,
   Avatar,
   Box,
-  Button,  
+  Button,
   Chip,
-  Container,  
+  Container,
   Menu,
   MenuItem,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
-import React from "react";
 import TypeColor from "../../utils/types";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PokemonSearch from "./PokemonSearch";
+import { useState } from "react";
 
 const types = [
   "ALL",
@@ -37,21 +38,18 @@ const types = [
   "FAIRY",
 ];
 
-export default function MenuBar({ selectType }: any) {
+export default function MenuBar({ selectType, getPokemon }: any) {
   const onChangeType = (type: string) => () => {
     selectType(type);
   };
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   return (
@@ -73,9 +71,9 @@ export default function MenuBar({ selectType }: any) {
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Open">
               <Button
-                onClick={handleOpenUserMenu}
+                onClick={handleOpenNavMenu}
                 sx={{ px: 1 }}
                 variant="outlined"
                 size="large"
@@ -85,9 +83,11 @@ export default function MenuBar({ selectType }: any) {
               </Button>
             </Tooltip>
             <Menu
+              anchorEl={anchorElNav}
+              onClose={handleCloseNavMenu}
+              open={Boolean(anchorElNav)}
               sx={{ mt: "45px" }}
               id="menu-appbar"
-              anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
                 horizontal: "right",
@@ -97,8 +97,6 @@ export default function MenuBar({ selectType }: any) {
                 vertical: "top",
                 horizontal: "right",
               }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
               {types.map((t) => (
                 <MenuItem key={t} onClick={onChangeType(t)}>
@@ -110,6 +108,14 @@ export default function MenuBar({ selectType }: any) {
                 </MenuItem>
               ))}
             </Menu>
+          </Box>
+
+          <Box
+            sx={{
+              padding: 2,
+            }}
+          >
+            <PokemonSearch getPokemon={getPokemon}/>
           </Box>
         </Toolbar>
       </Container>

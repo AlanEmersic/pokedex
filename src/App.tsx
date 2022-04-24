@@ -59,7 +59,7 @@ function App() {
   };
 
   const selectType = async (type: string) => {
-    if (type === "ALL") {      
+    if (type === "ALL") {
       getPokemons();
       return;
     }
@@ -94,10 +94,38 @@ function App() {
     };
   };
 
+  const getPokemon = async (pokemon: string) => {
+    if (pokemon === null) {
+      getPokemons();
+      return;
+    }
+
+    let cancel: any = null;
+    setLoading(true);
+
+    await axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`, {
+        cancelToken: new axios.CancelToken((ct) => {
+          cancel = ct;
+        }),
+      })
+      .then((res) => {
+        setPokemons([res.data]);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => console.log(error));
+
+    return () => {
+      cancel();
+    };
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Paper variant="outlined">
-        <MenuBar selectType={selectType} />
+        <MenuBar selectType={selectType} getPokemon={getPokemon} />
         <PokemonList pokemons={pokemons} isloading={loading} />
         {allType && <MenuNavigation goToPage={goToPage} />}
       </Paper>
