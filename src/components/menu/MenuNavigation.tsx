@@ -1,13 +1,15 @@
-import { Paper } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { Paper, Pagination, Stack } from "@mui/material";
 
-export default function MenuNavigation({ goToPage }: any) {
+type MenuNavigationProps = {
+  goToPage: (pageNumber: number) => void;
+};
+
+export const MenuNavigation = ({ goToPage }: MenuNavigationProps) => {
   const maxPages = 57;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const onChangePage = (event: any, page: number) => {
+  const onChangePage = (event: ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
     goToPage(page);
   };
@@ -35,4 +37,4 @@ export default function MenuNavigation({ goToPage }: any) {
       </Stack>
     </Paper>
   );
-}
+};

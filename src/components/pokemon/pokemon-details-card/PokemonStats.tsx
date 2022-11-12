@@ -1,14 +1,16 @@
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+
+import { PokemonStat } from "../../../models";
 
 ChartJS.register(
   CategoryScale,
@@ -19,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -54,7 +56,11 @@ const labels = [
   "SPEED",
 ];
 
-export default function PokemonStats({ stats }: any) {
+type PokemonStatsProps = {
+  stats: PokemonStat[];
+};
+
+export const PokemonStats = ({ stats }: PokemonStatsProps) => {
   const hp = stats[0].base_stat;
   const attack = stats[1].base_stat;
   const defense = stats[2].base_stat;
@@ -84,8 +90,18 @@ export default function PokemonStats({ stats }: any) {
   };
 
   return (
-    <Paper variant="outlined">
-      <Bar options={options} data={data} />
-    </Paper>
+    <>
+      <Typography
+        gutterBottom
+        variant="h5"
+        component="div"
+        sx={{ fontWeight: "bold" }}
+      >
+        Stats
+      </Typography>
+      <Paper variant="outlined">
+        <Bar options={options} data={data} />
+      </Paper>
+    </>
   );
-}
+};

@@ -16,6 +16,7 @@ export const DARK = "dark";
 export const DRAGON = "dragon";
 export const STEEL = "steel";
 export const FAIRY = "fairy";
+export const ALL = "all";
 
 export const TYPES = [
   NORMAL,
@@ -38,7 +39,7 @@ export const TYPES = [
   FAIRY,
 ];
 
-export default function TypeColor(type: string) {
+export const TypeColor = (type: string) => {
   switch (type) {
     case NORMAL:
       return "#7F8587";
@@ -80,4 +81,4 @@ export default function TypeColor(type: string) {
     default:
       return "#595959";
   }
-}
+};

@@ -1,8 +1,10 @@
-import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
 
-export default function PokemonSearch({ getPokemon }: any) {
+import { API_URL_POKEMON } from "../../routes";
+
+export const PokemonSearch = ({ getPokemon }: any) => {
   const [pokemons, setPokemons]: any = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
 
@@ -11,15 +13,10 @@ export default function PokemonSearch({ getPokemon }: any) {
   }, []);
 
   const getPokemons = async () => {
-    let cancel: any = null;
     const maxPokemons = 1126;
 
     await axios
-      .get(`https://pokeapi.co/api/v2/pokemon?limit=${maxPokemons}`, {
-        cancelToken: new axios.CancelToken((ct) => {
-          cancel = ct;
-        }),
-      })
+      .get(`${API_URL_POKEMON}?limit=${maxPokemons}`)
       .then((res) => {
         setPokemons(
           res.data.results.map(
@@ -28,10 +25,6 @@ export default function PokemonSearch({ getPokemon }: any) {
         );
       })
       .catch((error) => console.log(error));
-
-    return () => {
-      cancel();
-    };
   };
 
   const onSearchPokemon = (event: object, value: string | null) => {
@@ -50,4 +43,4 @@ export default function PokemonSearch({ getPokemon }: any) {
       onChange={onSearchPokemon}
     />
   );
-}
+};

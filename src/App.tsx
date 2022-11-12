@@ -1,88 +1,72 @@
-import { useState, useEffect } from "react";
-import PokemonList from "./components/pokemon/PokemonList";
 import axios from "axios";
-import MenuNavigation from "./components/menu/MenuNavigation";
-import MenuBar from "./components/menu/MenuBar";
-import theme from "./utils/theme";
+import { useEffect, useState } from "react";
 import { Paper, ThemeProvider } from "@mui/material";
 
+import { getAllPokemons, getPokemon } from "./api";
+import { API_URL_POKEMON, API_URL_TYPE } from "./routes";
+import { ALL, theme } from "./utils";
+import { Pokemon, PokemonList as PokemonListModel } from "./models";
+import { MenuBar, MenuNavigation, PokemonList } from "./components";
+
 function App() {
-  const [pokemons, setPokemons]: any = useState([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [allType, setAllType] = useState(true);
-  const [currentPageUrl, setCurrentPageUrl] = useState(
-    "https://pokeapi.co/api/v2/pokemon"
-  );
+  const [currentPageUrl, setCurrentPageUrl] = useState<string>(API_URL_POKEMON);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPokemons();
+    getPokemonsRequest();
   }, [currentPageUrl]);
 
-  const getPokemons = async (pageUrl: string | null = null) => {
+  const getPokemonsRequest = async (pageUrl: string | null = null) => {
     setLoading(true);
-    let cancel: any = null;
 
     if (pageUrl !== null) {
       setCurrentPageUrl(pageUrl);
     }
 
-    await axios
-      .get(currentPageUrl, {
-        cancelToken: new axios.CancelToken((ct) => {
-          cancel = ct;
-        }),
-      })
-      .then((res) => {
-        return res.data.results;
-      })
+    getAllPokemons(currentPageUrl)
       .then(async (data) => {
-        const promises = await data.map((p: any) => axios.get(p.url));
-
-        await Promise.all([...promises]).then((res) => {
-          setPokemons(res.map((r) => r.data));
+        const promises = data.map((pokemonList: PokemonListModel) => {
+          const url = pokemonList.url.replace(API_URL_POKEMON + "/", "");
+          return getPokemon(url);
         });
+
+        await Promise.all([...promises]).then((pokemons: Pokemon[]) =>
+          setPokemons(pokemons)
+        );
       })
       .then(() => {
         setAllType(true);
         setLoading(false);
       })
       .catch((error) => console.log(error));
-
-    return () => {
-      cancel();
-    };
   };
 
   const goToPage = (number: number) => {
     const limit = 20;
     const offset = (number - 1) * limit;
+    const url = `${API_URL_POKEMON}?offset=${offset}&limit=${limit}`;
 
-    setCurrentPageUrl(
-      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
-    );
+    setCurrentPageUrl(url);
   };
 
   const selectType = async (type: string) => {
-    if (type === "ALL") {
-      getPokemons("https://pokeapi.co/api/v2/pokemon");
+    if (type.toLowerCase() === ALL.toLowerCase()) {
+      getPokemonsRequest(API_URL_POKEMON);
       return;
     }
 
     setLoading(true);
     setAllType(false);
-    let cancel: any = null;
 
     await axios
-      .get(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}`, {
-        cancelToken: new axios.CancelToken((ct) => {
-          cancel = ct;
-        }),
-      })
+      .get(`${API_URL_TYPE}/${type.toLowerCase()}`)
       .then((res) => {
         return res.data.pokemon;
       })
       .then(async (data) => {
-        const promises = await data.map((p: any) => axios.get(p.pokemon.url));
+        const promises = await data.map((d: any) => axios.get(d.pokemon.url));
 
         await Promise.all([...promises]).then((res) => {
           setPokemons(res.map((r) => r.data));
@@ -92,45 +76,31 @@ function App() {
         setLoading(false);
       })
       .catch((error) => console.log(error));
-
-    return () => {
-      cancel();
-    };
   };
 
-  const getPokemon = async (pokemon: string) => {
+  const getPokemonRequest = async (pokemon: string) => {
     if (pokemon === null) {
-      getPokemons();
+      getPokemonsRequest();
       return;
     }
 
-    let cancel: any = null;
     setLoading(true);
     setAllType(false);
 
-    await axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`, {
-        cancelToken: new axios.CancelToken((ct) => {
-          cancel = ct;
-        }),
-      })
-      .then((res) => {
-        setPokemons([res.data]);
+    getPokemon(pokemon)
+      .then((pokemon) => {
+        setPokemons([pokemon]);
       })
       .then(() => {
         setLoading(false);
       })
       .catch((error) => console.log(error));
-
-    return () => {
-      cancel();
-    };
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Paper variant="outlined">
-        <MenuBar selectType={selectType} getPokemon={getPokemon} />
+        <MenuBar selectType={selectType} getPokemon={getPokemonRequest} />
         <PokemonList pokemons={pokemons} isloading={loading} />
         {allType && <MenuNavigation goToPage={goToPage} />}
       </Paper>

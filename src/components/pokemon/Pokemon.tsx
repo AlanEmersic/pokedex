@@ -1,19 +1,25 @@
+import { useState } from "react";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  Chip,
   Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import PokemonDetails from "./PokemonDetails";
-import TypeColor, { TYPES } from "../../utils/types";
 
-export default function Pokemon({ pokemon, isloading = true }: any) {
+import { Pokemon as PokemonModel } from "../../models";
+import { TYPES } from "../../utils";
+import { PokemonDetails, PokemonTypeList } from "..";
+
+type PokemonProps = {
+  pokemon: PokemonModel;
+  isloading: boolean;
+};
+
+export const Pokemon = ({ pokemon, isloading = true }: PokemonProps) => {
   const id = "#" + ("000" + pokemon.id).slice(-3);
   const name = pokemon.name;
   const types = pokemon.types.map((t: any) => {
@@ -24,7 +30,7 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
 
   const defaultSprite = pokemon.sprites.front_default;
 
-  const [openDetails, setOpenDetails] = useState(false);
+  const [openDetails, setOpenDetails] = useState<boolean>(false);
   const handleOpenDetails = () => setOpenDetails(true);
   const handleCloseDetails = () => setOpenDetails(false);
 
@@ -32,8 +38,14 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
     <Skeleton variant="rectangular" height={300} sx={{ maxHeight: 300 }} />
   ) : (
     <Card sx={{ maxWidth: 300 }}>
-      <CardMedia component="img" image={defaultSprite} alt={name} onClick={handleOpenDetails}/>
-      <CardContent onClick={handleOpenDetails}
+      <CardMedia
+        component="img"
+        image={defaultSprite}
+        alt={name}
+        onClick={handleOpenDetails}
+      />
+      <CardContent
+        onClick={handleOpenDetails}
         sx={{
           textAlign: "center",
         }}
@@ -61,20 +73,7 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
             justifyContent: "center",
           }}
         >
-          {types &&
-            types.map((t: string, id: number) => {
-              return (
-                <Chip
-                  key={id}
-                  label={t}
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: TypeColor(t.toLowerCase()),
-                    fontSize: "1.3rem",
-                  }}
-                />
-              );
-            })}
+          <PokemonTypeList types={types} />
         </Stack>
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>
@@ -89,4 +88,4 @@ export default function Pokemon({ pokemon, isloading = true }: any) {
       </CardActions>
     </Card>
   );
-}
+};

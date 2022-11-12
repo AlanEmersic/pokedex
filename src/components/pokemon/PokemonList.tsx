@@ -1,7 +1,17 @@
 import { Container, Grid } from "@mui/material";
-import Pokemon from "./Pokemon";
 
-export default function PokemonList({ pokemons, isloading = true }: any) {
+import { Pokemon as PokemonModel } from "../../models";
+import { Pokemon } from "./Pokemon";
+
+type PokemonListProps = {
+  pokemons: PokemonModel[];
+  isloading: boolean;
+};
+
+export const PokemonList = ({
+  pokemons,
+  isloading = true,
+}: PokemonListProps) => {
   return (
     <Container>
       <Grid container spacing={5} mb={15}>
@@ -16,4 +26,4 @@ export default function PokemonList({ pokemons, isloading = true }: any) {
       </Grid>
     </Container>
   );
-}
+};

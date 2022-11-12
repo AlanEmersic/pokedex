@@ -1,3 +1,5 @@
+import { useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   AppBar,
   Avatar,
@@ -11,34 +13,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import TypeColor from "../../utils/types";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import PokemonSearch from "./PokemonSearch";
-import { useState } from "react";
 
-const types = [
-  "ALL",
-  "NORMAL",
-  "FIRE",
-  "WATER",
-  "GRASS",
-  "ELECTRIC",
-  "ICE",
-  "FIGHTING",
-  "POISON",
-  "GROUND",
-  "FLYING",
-  "PSYCHIC",
-  "BUG",
-  "ROCK",
-  "GHOST",
-  "DARK",
-  "DRAGON",
-  "STEEL",
-  "FAIRY",
-];
+import { ALL, TYPES, TypeColor } from "../../utils";
+import { PokemonSearch } from "..";
 
-export default function MenuBar({ selectType, getPokemon }: any) {
+const types: string[] = [ALL.toUpperCase()].concat(
+  TYPES.map((t) => t.toUpperCase())
+);
+
+export const MenuBar = ({ selectType, getPokemon }: any) => {
   const onChangeType = (type: string) => () => {
     selectType(type);
   };
@@ -115,10 +98,10 @@ export default function MenuBar({ selectType, getPokemon }: any) {
               padding: 2,
             }}
           >
-            <PokemonSearch getPokemon={getPokemon}/>
+            <PokemonSearch getPokemon={getPokemon} />
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
