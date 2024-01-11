@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import { PokemonTypeList } from "../..";
+import { PokemonTypeList } from "components";
 
 export const PokemonTypes = ({ types }: any) => {
   return (
@@ -11,12 +11,7 @@ export const PokemonTypes = ({ types }: any) => {
         justifyContent: "center",
       }}
     >
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: "bold" }}>
         Type
       </Typography>
       <PokemonTypeList types={types} />

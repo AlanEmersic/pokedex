@@ -12,12 +12,7 @@ export const PokemonName = ({ name, id }: PokemonNameProps) => {
         textAlign: "center",
       }}
     >
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ textTransform: "capitalize", fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ textTransform: "capitalize", fontWeight: "bold" }}>
         {name} {id}
       </Typography>
     </CardContent>

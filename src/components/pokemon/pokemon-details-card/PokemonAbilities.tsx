@@ -14,28 +14,22 @@ export const PokemonAbilities = ({ abilities }: PokemonAbilitiesProps) => {
         justifyContent: "center",
       }}
     >
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ textTransform: "capitalize", fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ textTransform: "capitalize", fontWeight: "bold" }}>
         Abilities
       </Typography>
-      {abilities &&
-        abilities.map((a: string, id: number) => {
-          return (
-            <Chip
-              key={id}
-              label={a}
-              variant="outlined"
-              sx={{
-                fontSize: "1.3rem",
-                backgroundColor: "#30A7D7",
-              }}
-            />
-          );
-        })}
+      {abilities?.map((a: string) => {
+        return (
+          <Chip
+            key={a}
+            label={a}
+            variant="outlined"
+            sx={{
+              fontSize: "1.3rem",
+              backgroundColor: "#30A7D7",
+            }}
+          />
+        );
+      })}
     </Stack>
   );
 };

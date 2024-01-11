@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { API_URL_POKEMON } from "../../routes/routes";
+
+import { API_URL_POKEMON } from "routes";
 
 const defaultOptions = {
   baseURL: API_URL_POKEMON,
@@ -8,13 +9,13 @@ const defaultOptions = {
   },
 };
 
-let instance = axios.create(defaultOptions);
+const instance = axios.create(defaultOptions);
 
 instance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
