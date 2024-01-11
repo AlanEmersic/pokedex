@@ -1,5 +1,5 @@
-import { api } from "../util/api";
-import { PokemonList } from "../../models";
+import { api } from "api";
+import { PokemonList } from "models";
 
 export const getAllPokemons = async (url: string): Promise<PokemonList[]> => {
   const response = await api.get(url);

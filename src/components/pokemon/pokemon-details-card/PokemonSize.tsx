@@ -14,21 +14,11 @@ export const PokemonSize = ({ height, weight }: PokemonSizeProps) => {
         justifyContent: "center",
       }}
     >
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: "bold" }}>
         Height: {height} m
       </Typography>
 
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: "bold" }}>
         Weight: {weight} kg
       </Typography>
     </Stack>

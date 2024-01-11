@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { API_URL_POKEMON } from "../../routes";
+import { API_URL_POKEMON } from "routes";
 
 export const PokemonSearch = ({ getPokemon }: any) => {
   const [pokemons, setPokemons]: any = useState([]);
@@ -17,14 +17,10 @@ export const PokemonSearch = ({ getPokemon }: any) => {
 
     await axios
       .get(`${API_URL_POKEMON}?limit=${maxPokemons}`)
-      .then((res) => {
-        setPokemons(
-          res.data.results.map(
-            (p: any) => p.name.charAt(0).toUpperCase() + p.name.slice(1)
-          )
-        );
+      .then(res => {
+        setPokemons(res.data.results.map((p: any) => p.name.charAt(0).toUpperCase() + p.name.slice(1)));
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   const onSearchPokemon = (event: object, value: string | null) => {
@@ -38,7 +34,7 @@ export const PokemonSearch = ({ getPokemon }: any) => {
       id="search"
       options={pokemons}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Search pokemon" />}
+      renderInput={params => <TextField {...params} label="Search pokemon" />}
       value={selectedPokemon}
       onChange={onSearchPokemon}
     />

@@ -1,25 +1,10 @@
 import { Paper, Typography } from "@mui/material";
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-import { PokemonStat } from "../../../models";
+import { PokemonStat } from "models";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const options = {
   responsive: true,
@@ -47,14 +32,7 @@ const options = {
   },
 };
 
-const labels = [
-  "HP",
-  "ATTACK",
-  "DEFENSE",
-  "SPECIAL ATTACK",
-  "SPECIAL DEFENSE",
-  "SPEED",
-];
+const labels = ["HP", "ATTACK", "DEFENSE", "SPECIAL ATTACK", "SPECIAL DEFENSE", "SPEED"];
 
 type PokemonStatsProps = {
   stats: PokemonStat[];
@@ -68,14 +46,7 @@ export const PokemonStats = ({ stats }: PokemonStatsProps) => {
   const specialDefense = stats[4].base_stat;
   const speed = stats[5].base_stat;
 
-  const pokemonStats = [
-    hp,
-    attack,
-    defense,
-    specialAttack,
-    specialDefense,
-    speed,
-  ];
+  const pokemonStats = [hp, attack, defense, specialAttack, specialDefense, speed];
 
   const data = {
     labels,
@@ -91,12 +62,7 @@ export const PokemonStats = ({ stats }: PokemonStatsProps) => {
 
   return (
     <>
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ fontWeight: "bold" }}
-      >
+      <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: "bold" }}>
         Stats
       </Typography>
       <Paper variant="outlined">

@@ -1,15 +1,8 @@
-import { Box, Card, CardContent, Fade, Modal, Backdrop } from "@mui/material";
+import { Backdrop, Box, Card, CardContent, Fade, Modal } from "@mui/material";
 
-import { Pokemon, PokemonStat } from "../../../models";
-import { TYPES } from "../../../utils";
-import {
-  PokemonAbilities,
-  PokemonImage,
-  PokemonName,
-  PokemonSize,
-  PokemonStats,
-  PokemonTypes,
-} from "../..";
+import { PokemonAbilities, PokemonImage, PokemonName, PokemonSize, PokemonStats, PokemonTypes } from "components";
+import { Pokemon, PokemonStat } from "models";
+import { TYPES } from "utils";
 
 const boxStyle = {
   position: "absolute",
@@ -34,19 +27,13 @@ type PokemonDetailsProps = {
   handleCloseDetails: () => void;
 };
 
-export const PokemonDetails = ({
-  pokemon,
-  openDetails,
-  handleCloseDetails,
-}: PokemonDetailsProps) => {
+export const PokemonDetails = ({ pokemon, openDetails, handleCloseDetails }: PokemonDetailsProps) => {
   const id = "#" + ("000" + pokemon.id).slice(-3);
   const name = pokemon.name;
   const height = pokemon.height / 10;
   const weight = pokemon.weight / 10;
   const types = pokemon.types.map((t: any) => {
-    return TYPES.includes(t.type.name)
-      ? t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)
-      : null;
+    return TYPES.includes(t.type.name) ? t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1) : null;
   });
 
   const stats: PokemonStat[] = pokemon.stats;

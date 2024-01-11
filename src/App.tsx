@@ -1,12 +1,12 @@
+import { Paper, ThemeProvider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Paper, ThemeProvider } from "@mui/material";
 
-import { getAllPokemons, getPokemon } from "./api";
-import { API_URL_POKEMON, API_URL_TYPE } from "./routes";
-import { ALL, theme } from "./utils";
-import { Pokemon, PokemonList as PokemonListModel } from "./models";
-import { MenuBar, MenuNavigation, PokemonList } from "./components";
+import { getAllPokemons, getPokemon } from "api";
+import { MenuBar, MenuNavigation, PokemonList } from "components";
+import { Pokemon, PokemonList as PokemonListModel } from "models";
+import { API_URL_POKEMON, API_URL_TYPE } from "routes";
+import { ALL, theme } from "utils";
 
 function App() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -26,21 +26,19 @@ function App() {
     }
 
     getAllPokemons(currentPageUrl)
-      .then(async (data) => {
+      .then(async data => {
         const promises = data.map((pokemonList: PokemonListModel) => {
           const url = pokemonList.url.replace(API_URL_POKEMON + "/", "");
           return getPokemon(url);
         });
 
-        await Promise.all([...promises]).then((pokemons: Pokemon[]) =>
-          setPokemons(pokemons)
-        );
+        await Promise.all([...promises]).then((pokemons: Pokemon[]) => setPokemons(pokemons));
       })
       .then(() => {
         setAllType(true);
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   const goToPage = (number: number) => {
@@ -62,20 +60,20 @@ function App() {
 
     await axios
       .get(`${API_URL_TYPE}/${type.toLowerCase()}`)
-      .then((res) => {
+      .then(res => {
         return res.data.pokemon;
       })
-      .then(async (data) => {
+      .then(async data => {
         const promises = await data.map((d: any) => axios.get(d.pokemon.url));
 
-        await Promise.all([...promises]).then((res) => {
-          setPokemons(res.map((r) => r.data));
+        await Promise.all([...promises]).then(res => {
+          setPokemons(res.map((r: any) => r.data));
         });
       })
       .then(() => {
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   const getPokemonRequest = async (pokemon: string) => {
@@ -88,13 +86,13 @@ function App() {
     setAllType(false);
 
     getPokemon(pokemon)
-      .then((pokemon) => {
+      .then(pokemon => {
         setPokemons([pokemon]);
       })
       .then(() => {
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   return (

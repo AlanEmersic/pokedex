@@ -15,10 +15,7 @@ export const MenuNavigation = ({ goToPage }: MenuNavigationProps) => {
   };
 
   return (
-    <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-      elevation={3}
-    >
+    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
       <Stack
         spacing={2}
         sx={{
@@ -27,13 +24,7 @@ export const MenuNavigation = ({ goToPage }: MenuNavigationProps) => {
           padding: "2rem",
         }}
       >
-        <Pagination
-          count={maxPages}
-          variant="outlined"
-          color="primary"
-          page={currentPage}
-          onChange={onChangePage}
-        />
+        <Pagination count={maxPages} variant="outlined" color="primary" page={currentPage} onChange={onChangePage} />
       </Stack>
     </Paper>
   );
